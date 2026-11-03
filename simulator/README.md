@@ -1,6 +1,6 @@
 # The real permission prompt
 
-The package above uses an Objective-C stand-in so it runs anywhere. This folder is the small iOS app that puts the same closures through the real `SFSpeechRecognizer.requestAuthorization`, in a simulator, with a human or a tool tapping the prompt.
+The package above uses an Objective-C stand-in so it runs without a simulator. This folder is the small iOS app that puts the same closures through the real `SFSpeechRecognizer.requestAuthorization`, in a simulator, with a human or a tool tapping the prompt.
 
 ```
 ./build.sh swift6-O -swift-version 6 -O
@@ -14,4 +14,6 @@ echo <its UDID> > .udid          # then boot it
 
 Booting a simulator is heavy. On the 10-core Mac this was run on, one boot took the load average past 100 within a minute.
 
-`results/` holds the raw runs from Xcode 27.2 and the iOS 27.0 simulator, one run per row. The `DispatchQueue` and `Task` hop runs wrote no crash report, for reasons unknown, so `results/lldb-*.txt` records them under a debugger. `simulator-prompt-closures.tsv` shows those two rows as `no-crash` for that reason: the classifier found no report, and the process had exited without logging an answer. The debugger output is the evidence for them.
+`results/` holds the raw runs from Xcode 27.2 and the iOS 27.0 simulator. All three closures crashed through the real prompt: the crash stacks are in `results/crash-stacks/`, and `results/lldb-*.txt` shows the two hops under a debugger.
+
+The two hops read `no-crash` in `simulator-prompt-closures.tsv`, and those rows are wrong. The first run of each, under the process name `Probe`, left no crash report, for reasons unknown. Renamed and re-run, they wrote reports, but one landed 34 seconds after the crash with no bundle ID in its header, so the checker missed it. `check.sh` and `classify.py` now wait longer and handle a missing bundle ID. A `no-crash` from `check.sh` still isn't proof: under heavy load, look for a late report, or attach a debugger.

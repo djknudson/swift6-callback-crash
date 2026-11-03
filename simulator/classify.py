@@ -8,7 +8,10 @@ for f in glob.glob(os.path.expanduser('~/Library/Logs/DiagnosticReports/*Probe-*
     raw=open(f).read().split('\n',1)
     try: h=json.loads(raw[0]); d=json.loads(raw[1])
     except Exception: continue
-    if h.get('bundleID')!=bundle: continue
+    # Some reports carry no bundle ID in their header, so fall back on the process name.
+    name=bundle.rsplit('.',1)[-1]
+    if h.get('bundleID') not in (bundle,None): continue
+    if h.get('bundleID') is None and h.get('app_name','') not in ('Probe','HopProbe') and d.get('procName','') not in ('Probe','HopProbe'): continue
     hits.append((os.path.getmtime(f),f,d))
 if not hits: print('RESULT no-crash'); sys.exit()
 _,f,d=sorted(hits)[-1]

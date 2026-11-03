@@ -1,0 +1,11 @@
+Probe-2026-11-03-114152.ips EXC_BREAKPOINT SIGTRAP queue com.apple.root.default-qos
+libdispatch.dylib            _dispatch_assert_queue_fail
+libdispatch.dylib            dispatch_assert_queue$V2.cold.1
+libdispatch.dylib            dispatch_assert_queue
+libswift_Concurrency.dylib   _swift_task_checkIsolatedSwift
+libswift_Concurrency.dylib   swift_task_isCurrentExecutorWithFlagsImpl(swift::SerialExecutorRef, swift::swift_task_is_current_executor_flag)
+Probe                        closure #1 in Variants.emptyClosure()
+Probe                        <deduplicated_symbol>
+TCC                          __TCCAccessRequest_block_invoke_8
+TCC                          __tccd_send_message_block_invoke
+libxpc.dylib                 _xpc_connection_reply_callout

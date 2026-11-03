@@ -52,4 +52,6 @@ To see a test catch a regression, delete `@Sendable` from `askFixed` in `Sources
 | `CMPedometer.queryPedometerData` | **isolated, exposed** |
 | `URLSession.dataTask` | not isolated, safe |
 
+The `simulator` folder puts the same closures through the real speech prompt on an iOS simulator, and holds the raw results.
+
 The run-time check comes from [SE-0423](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0423-dynamic-actor-isolation.md). Tested with Xcode 27.2 and Swift 6.4.2.

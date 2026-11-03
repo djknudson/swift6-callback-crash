@@ -1,0 +1,14 @@
+label\tprocess\tapp_log\tcrash
+A swift6 real-shape, first ask, ALLOW	process=gone	[probe] LAUNCH variant=continuation priorStatus=0 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+B swift6 real-shape, already allowed (reinstalled + relaunched)	process=gone	[probe] LAUNCH variant=continuation priorStatus=3 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+C swift6 real-shape, first ask, DON'T ALLOW	process=gone	[probe] LAUNCH variant=continuation priorStatus=0 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+D swift6 real-shape, already denied	process=gone	[probe] LAUNCH variant=continuation priorStatus=1 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+E swift6 @Sendable closure, first ask, ALLOW	process=running	[probe] LAUNCH variant=sendable priorStatus=0 [probe] ANSWER variant=sendable status=3 main=false queue=com.apple.root.default-qos 	RESULT no-crash
+F swift6 @Sendable closure, already allowed	process=running	[probe] LAUNCH variant=sendable priorStatus=3 [probe] ANSWER variant=sendable status=3 main=false queue=com.apple.root.default-qos 	RESULT no-crash
+G swift6 nonisolated helper (the shipped fix), first ask, ALLOW	process=running	[probe] LAUNCH variant=helper priorStatus=0 [probe] ANSWER variant=nonisolated-helper status=3 main=false queue=com.apple.root.default-qos [probe] ANSWER variant=resumed status=3 main=true queue=com.apple.main-thread 	RESULT no-crash
+H swift5 mode real-shape, first ask, ALLOW	process=running	[probe] LAUNCH variant=continuation priorStatus=0 [probe] ANSWER variant=continuation-resumed status=3 main=true queue=com.apple.main-thread 	RESULT no-crash
+I new-project settings in Swift 6 mode, plain class, first ask, ALLOW	process=gone	[probe] LAUNCH variant=plain priorStatus=0 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+J new-project settings in Swift 5 mode, plain class, first ask, ALLOW	process=running	[probe] LAUNCH variant=plain priorStatus=0 [probe] ANSWER variant=plain status=3 main=false queue=com.apple.root.default-qos 	RESULT no-crash
+K swift6 photos-old, already allowed	process=gone	[probe] LAUNCH variant=photos-old priorStatus=3 supportsOnDevice=true 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.photos.accessCallbacks
+K swift6 photos-new, already allowed	process=running	[probe] LAUNCH variant=photos-new priorStatus=3 supportsOnDevice=true [probe] ANSWER variant=photos-new status=3 main=false queue=com.apple.photos.accessCallbacks 	RESULT no-crash
+K swift6 audiosession-old, already allowed	process=running	[probe] LAUNCH variant=audiosession-old priorStatus=3 supportsOnDevice=true [probe] ANSWER variant=audiosession-old status=1 main=true queue=com.apple.main-thread 	RESULT no-crash

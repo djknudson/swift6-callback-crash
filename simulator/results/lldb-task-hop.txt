@@ -1,0 +1,40 @@
+(lldb) process attach --pid 8518
+Process 8518 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP
+       frame #0: 0x0000000100c1cb5c libsystem_kernel.dylib`mach_msg2_trap + 8
+libsystem_kernel.dylib`mach_msg2_trap:
+->  0x100c1cb5c <+8>: ret    
+
+libsystem_kernel.dylib`macx_swapon:
+    0x100c1cb60 <+0>: mov    x16, #-0x30               ; =-48 
+    0x100c1cb64 <+4>: svc    #0x80
+    0x100c1cb68 <+8>: ret    
+Target 0: (HopProbe) stopped.
+Executable binary set to "~/Library/Developer/CoreSimulator/Devices/8E964A7B-AE62-4C8B-92E8-84530A85B676/data/Containers/Bundle/Application/667DBCAC-625A-4010-8FA6-9FC226263D06/Probe.app/HopProbe".
+Architecture set to: arm64-apple-ios-simulator.
+(lldb) continue
+Process 8518 resuming
+Process 8518 stopped
+* thread #3, queue = 'com.apple.root.default-qos', stop reason = EXC_BREAKPOINT (code=1, subcode=0x1e64510a4)
+       frame #0: 0x00000001e64510a4 libdispatch.dylib`_dispatch_assert_queue_fail + 104
+libdispatch.dylib`_dispatch_assert_queue_fail:
+->  0x1e64510a4 <+104>: brk    #0x1
+
+libdispatch.dylib`_dispatch_assert_queue_barrier_fail:
+    0x1e64510a8 <+0>:   sub    sp, sp, #0x40
+    0x1e64510ac <+4>:   stp    x20, x19, [sp, #0x20]
+    0x1e64510b0 <+8>:   stp    x29, x30, [sp, #0x30]
+Target 0: (HopProbe) stopped.
+(lldb) thread backtrace -c 9
+* thread #3, queue = 'com.apple.root.default-qos', stop reason = EXC_BREAKPOINT (code=1, subcode=0x1e64510a4)
+   * frame #0: 0x00000001e64510a4 libdispatch.dylib`_dispatch_assert_queue_fail + 104
+     frame #1: 0x00000001e6451ab8 libdispatch.dylib`dispatch_assert_queue$V2.cold.1 + 136
+     frame #2: 0x00000001e641e9d8 libdispatch.dylib`dispatch_assert_queue + 84
+     frame #3: 0x00000001c15951c8 libswift_Concurrency.dylib`_swift_task_checkIsolatedSwift + 32
+     frame #4: 0x00000001c155e954 libswift_Concurrency.dylib`swift_task_isCurrentExecutorWithFlagsImpl(swift::SerialExecutorRef, swift::swift_task_is_current_executor_flag) + 356
+     frame #5: 0x0000000100bce8ac HopProbe`closure #1 in Variants.carefulTask() + 144
+     frame #6: 0x0000000100bced54 HopProbe`merged reabstraction thunk helper from @escaping @callee_guaranteed (@unowned __C.SFSpeechRecognizerAuthorizationStatus) -> () to @escaping @callee_unowned @convention(block) (@unowned __C.SFSpeechRecognizerAuthorizationStatus) -> () + 48
+     frame #7: 0x00000001efd2dc30 TCC`__TCCAccessRequest_block_invoke_8 + 388
+     frame #8: 0x00000001efd34744 TCC`__tccd_send_message_block_invoke + 740
+(lldb) process kill
+Process 8518 exited with status = 9 (0x00000009) killed

@@ -1,0 +1,5 @@
+label\tprocess\tapp_log\tcrash
+L swift6 -O EMPTY closure, real API, first ask, ALLOW	process=gone	[probe] LAUNCH variant=empty priorStatus=0 supportsOnDevice=false 	RESULT ISOLATION-TRAP EXC_BREAKPOINT queue= com.apple.root.default-qos
+M swift6 -O DispatchQueue.main.async hop, real API, first ask, ALLOW	process=gone	[probe] LAUNCH variant=careful-hop priorStatus=0 supportsOnDevice=false 	RESULT no-crash
+N swift6 -O Task hop, real API, first ask, ALLOW	process=gone	[probe] LAUNCH variant=careful-task priorStatus=0 supportsOnDevice=false 	RESULT no-crash
+O swift6 -O DispatchQueue.main.async hop, real API, first ask, ALLOW (renamed binary)	process=gone	[probe] LAUNCH variant=careful-hop priorStatus=0 supportsOnDevice=false 	RESULT no-crash

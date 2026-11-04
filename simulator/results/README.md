@@ -1,0 +1,1 @@
+Rows M, N and O of `simulator-prompt-closures.tsv` say `no-crash`, and that's wrong: both hops crash through the real prompt, as `crash-stacks/HopProbe-*.txt` and `lldb-*-hop.txt` show. The file is left as the checker wrote it, and `../README.md` explains why it missed them.
